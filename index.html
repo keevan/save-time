@@ -7,14 +7,18 @@
 <p>View the source @ <a href="https://github.com/keevan/save-time">https://github.com/keevan/save-time</a></p>
 
 <script>
-	const searchParams = new URLSearchParams(location.search);
+	let searchParams = new URLSearchParams(location.search);
 
 	// Add param and value to body
+	let markup
 	for (let p of searchParams) {
-		document.getElementById('_').append(`
-			<div>${p[0]}: <b style="user-select: all">${p[1]}</b></div>
-		`)
+		markup += `
+			<div>
+				${p[0]}: <b style="user-select: all">${p[1]}</b>
+			</div>
+		`
 	}
+	document.getElementById('_').innerHTML(markup)
 
 </script>
 

@@ -26,7 +26,8 @@ rm -r linux_amd64
 	- enable the Calendar API,
 	- create credentials:
 	- API Keys (options up to you)
-	- OAuth 2.0 Client IDs (you'll need some sort of redirect URL)
+	- OAuth 2.0 Client IDs
+		- You can set the redirect URL to https://keevan.github.io/save-time (we only need to grab the 'code/verification-code' value when prompted)
 
 #### Gaining Calendar Access
 2 - Run the `save-date` command to start the auth process (uses oauth2l to get tokens and stores them in default 'cache' location)
