@@ -17,6 +17,7 @@ mv linux_amd64/oauth2l .
 rm -r linux_amd64
 ```
 - timew (to track time)
+- jq (Small json parser - apt install jq)
 
 ### Steps
 
