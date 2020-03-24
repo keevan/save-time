@@ -45,6 +45,10 @@ API_KEY=$(cat $CONFIG_PATH/apikey)
 
 # Export events
 
+# Debugging
+# oauth2l fetch --scope userinfo.email,calendar.events --cache $CONFIG_PATH/oauth2l 2>&1 /dev/null
+# OAUTH_TOKEN=$( oauth2l fetch --scope userinfo.email,calendar.events --cache $CONFIG_PATH/oauth2l 2>&1 /dev/null )
+
 OAUTH_TOKEN=$( oauth2l fetch --scope userinfo.email,calendar.events --cache $CONFIG_PATH/oauth2l )
 
 # Count the number of events
@@ -81,6 +85,10 @@ for encoded in $(timew export | jq -c '.[] | @base64'); do
 			--compressed |
 			jq -r '.status'
 
+	else
+		# Debugging
+		# echo $OAUTH_TOKEN
+		# echo $API_KEY
 	fi
 
 
