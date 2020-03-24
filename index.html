@@ -2,7 +2,7 @@
 
 <p>Grab what you need below</p>
 
-<pre id="_" style="font-size:2em;white-space:pre-line"></pre>
+<div id="_" style="font-size:2em;white-space:pre-line"></div>
 
 <p>View the source @ <a href="https://github.com/keevan/save-time">https://github.com/keevan/save-time</a></p>
 
@@ -12,7 +12,7 @@
 	// Add param and value to body
 	for (let p of searchParams) {
 		document.getElementById('_').append(`
-			${p[0]}: <b style="user-select: all">${p[1]}</b>
+			<div>${p[0]}: <b style="user-select: all">${p[1]}</b></div>
 		`)
 	}
 
