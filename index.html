@@ -1,3 +1,20 @@
-Test
+<h1>Save time</h1>
 
-<script>console.log(123)</script>
+<p>Copy the verification code below</p>
+<p>View the source @ <a href="https://github.com/keevan/save-time">https://github.com/keevan/save-time</a></p>
+
+<pre id="_">
+</pre>
+
+<script>
+	const searchParams = new URLSearchParams(location.search);
+
+	// Add param and value to body
+	for (let p of searchParams) {
+		document.getElementById('_').append(`
+			${p[0]}: ${p[1]}
+		`)
+	}
+
+</script>
+
