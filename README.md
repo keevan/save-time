@@ -63,6 +63,8 @@ save-time --summary /tmp/events.json --title "Why I couldn't come out today"
 
 ## TODO
 - Add caching because these tools are basic, to ensure it doesn't add a duplicate event to the calendar, by marking it as such when created
+- Add to the summary the number of hours total, with an option to assign groups of time (e.g. lunch -> 'excluded', ...rest -> 'project A')
+
 
 ## Future
 - Use timew hooks to trigger events? Such that when an event has an 'end', save in in the calendar?
