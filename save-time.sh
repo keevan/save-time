@@ -18,15 +18,23 @@
 		exit 1
 	}
 
+	# Defaults
+	SUMMARY_TITLE="Summary of my da"
+
 	# parse params
 	while [[ "$#" > 0 ]]; do case $1 in
-		-d|--dry-run) DRY_RUN=1; shift;shift;;
+		-d|--dry-run) DRY_RUN=1; shift;;
 		-r|--recipients) RECIPIENTS="$2";shift;shift;;
-		-s|--summary) SHOW_SUMMARY=1;shift;shift;;
+		-t|--title) SUMMARY_TITLE="$2";shift;shift;;
+		-s|--summary) SHOW_SUMMARY=1;shift;;
 		-h|--help) usage;shift;shift;;
 		-v|--verbose) VERBOSE=1;shift;;
 		*) usage "Unknown parameter passed: $1"; shift; shift;;
 	esac; done
+
+	# echo $DRY_RUN
+	# echo $RECIPIENTS
+	# echo $SHOW_SUMMARY
 
 	# verify params
 	# if [ -z "$SOMETHING" ]; then usage "My error"; fi;
@@ -82,7 +90,7 @@ if [ "$SHOW_SUMMARY" = 1 ] ; then
 	# DESCRIPTION=$( timew s | tail -n +4 | sed -E 's/(.{19})//;s/(.?)([0-9])\s.*/\1\2/;/^$/d;s/(.*)? ([0-9]?[0-9]:[0-9]{2}:[0-9]{2})/\1 -- \2/' )
 	# echo "$DESCRIPTION"
 
-	SUMMARY="Summary of my day"
+	SUMMARY="$SUMMARY_TITLE"
 
 	# Create an event for 'now' (0 mins)
 	UTC_NOW=$(date +%Y-%m-%dT%H:%M:%S -u)
@@ -94,6 +102,7 @@ if [ "$SHOW_SUMMARY" = 1 ] ; then
 		# description_object="\"description\":\"$DESCRIPTION\""
 		# description_object="\"description\":\"$DESCRIPTION\""
 		description_object='"description":"'$DESCRIPTION'"'
+		attendees_object='"attendees":[{email:"'$RECIPIENTS'"}]'
 		# echo $DESCRIPTION | sed -e 's/\n/\\n/g'
 		# echo $description_object
 		# description_object=$( echo "$description_object" | paste -sd "_" - )
@@ -104,7 +113,7 @@ if [ "$SHOW_SUMMARY" = 1 ] ; then
 		curl -s "https://content.googleapis.com/calendar/v3/calendars/primary/events?sendNotifications=true&alt=json&key=$API_KEY" \
 			-H "authorization: Bearer $OAUTH_TOKEN" \
 			-H 'content-type: application/json' \
-			--data-binary "{$start_datetime_object,$end_datetime_object,$summary_object,$description_object}" \
+			--data-binary "{$start_datetime_object,$end_datetime_object,$summary_object,$description_object,$attendees_object}" \
 			--compressed |
 			jq -r '.status'
 
