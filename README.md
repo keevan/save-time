@@ -61,6 +61,9 @@ timew export > /tmp/events.json
 save-time --summary /tmp/events.json --title "Why I couldn't come out today"
 ```
 
+## TODO
+- Add caching because these tools are basic, to ensure it doesn't add a duplicate event to the calendar, by marking it as such when created
+
 ## Future
 - Use timew hooks to trigger events? Such that when an event has an 'end', save in in the calendar?
 - Add recipients option to specify recipients you might want to share the created events with
