@@ -99,15 +99,11 @@ if [ "$SHOW_SUMMARY" = 1 ] ; then
 		start_datetime_object="\"start\":{\"dateTime\":\"$UTC_NOW\",\"timeZone\":\"UTC\"}"
 		end_datetime_object="\"end\":{\"dateTime\":\"$UTC_NOW\",\"timeZone\":\"UTC\"}"
 		summary_object="\"summary\":\"$SUMMARY\""
-		# description_object="\"description\":\"$DESCRIPTION\""
-		# description_object="\"description\":\"$DESCRIPTION\""
 		description_object='"description":"'$DESCRIPTION'"'
 		attendees_object='"attendees":[{email:"'$RECIPIENTS'"}]'
-		# echo $DESCRIPTION | sed -e 's/\n/\\n/g'
-		# echo $description_object
-		# description_object=$( echo "$description_object" | paste -sd "_" - )
 		description_object=$( echo "$description_object" | paste -s -d '|' | sed 's/|/\\n/g'  )
-		# echo "$description_object"
+
+	if [ "$DRY_RUN" != 1 ] ; then
 
 		# If not a dry-run, call the api
 		curl -s "https://content.googleapis.com/calendar/v3/calendars/primary/events?sendNotifications=true&alt=json&key=$API_KEY" \
@@ -117,6 +113,7 @@ if [ "$SHOW_SUMMARY" = 1 ] ; then
 			--compressed |
 			jq -r '.status'
 
+	fi
 fi
 
 
